@@ -15,10 +15,9 @@ Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel
-BuildRequires:	sablotron-devel
+BuildRequires:	pcre-devel
+BuildRequires:	libxslt-devel
 Requires(post,preun):	%{apxs}
-Requires:	expat
-Requires:	sablotron
 Conflicts:	apache-mod_xslt
 Obsoletes:	apache-mod_xslt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
