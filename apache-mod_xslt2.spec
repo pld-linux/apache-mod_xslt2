@@ -15,8 +15,9 @@ Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel
-BuildRequires:	pcre-devel
 BuildRequires:	libxslt-devel
+BuildRequires:	pcre-devel
+Requires(post):	/sbin/ldconfig
 Requires(post,preun):	%{apxs}
 Conflicts:	apache-mod_xslt
 Obsoletes:	apache-mod_xslt
@@ -50,18 +51,25 @@ i zwróci przegl±darce powsta³y w ten sposób text/html. Ca³y proces
 odbywa siê w sposób niewidoczny dla u¿ytkownika.
 
 %package devel
-Summary:	development headers for mod_xslt2
-Group:	Development/Libraries
+Summary:	Development headers for mod_xslt2
+Summary(pl):	Pliki nag³ówkowe mod_xslt2
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 development headers for mod_xslt2.
 
 %package static
-Summary:        static libraries for mod_xslt2
-Group:  Development/Libraries
+Summary:	Static mod_xslt2 library
+Summary(pl):	Statyczna biblioteka mod_xslt2
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-static libraries for mod_xslt2.
+Static mod_xslt2 library.
+
+%description static -l pl
+Statyczna biblioteka mod_xslt2.
 
 %prep
 %setup -q -n mod%{mod_name}-%{snapdate}
@@ -69,13 +77,15 @@ static libraries for mod_xslt2.
 
 %build
 %configure
-%{__make} APXS=%{apxs}
+%{__make} \
+	APXS=%{apxs}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf}
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/70_mod_xslt2.conf
 
@@ -83,7 +93,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/70_mod_xslt2.conf
 rm -rf $RPM_BUILD_ROOT
 
 %post
-ldconfig
+/sbin/ldconfig
 if [ -f /var/lock/subsys/httpd ]; then
 	/etc/rc.d/init.d/httpd restart 1>&2
 fi
@@ -94,18 +104,21 @@ if [ "$1" = "0" ]; then
 		/etc/rc.d/init.d/httpd restart 1>&2
 	fi
 fi
-ldconfig
+
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/httpd.conf/*
 %attr(755,root,root) %{_pkglibdir}/*
-%{_libdir}/libmodxslt0.so.0.0.0
+%attr(755,root,root) %{_libdir}/libmodxslt0.so.*.*.*
 
 %files devel
-%{_bindir}/*
-%{_includedir}/modxslt0/*.h
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*
 %{_libdir}/*.la
+%{_includedir}/modxslt0
 
 %files static
+%defattr(644,root,root,755)
 %{_libdir}/*.a
