@@ -17,7 +17,7 @@ BuildRequires:	%{apxs}
 BuildRequires:	apache-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
-Requires(post,postun):	/sbin/ldconfig
+Requires(post):	/sbin/ldconfig
 Requires(post,preun):	%{apxs}
 Conflicts:	apache-mod_xslt
 Obsoletes:	apache-mod_xslt
