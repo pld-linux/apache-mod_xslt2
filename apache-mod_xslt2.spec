@@ -1,10 +1,10 @@
 %define		mod_name	xslt
-%define 	apxs		/usr/sbin/apxs
+%define		apxs		/usr/sbin/apxs
 Summary:	Module to serve XML based content
 Summary(pl):	Modu³ do udostêpniania dokumentów XML
 Name:		apache-mod_%{mod_name}2
 Version:	1.3.6
-%define	snap	2004083000
+%define		snap	2004083000
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
@@ -17,7 +17,7 @@ BuildRequires:	%{apxs}
 BuildRequires:	apache-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
-Requires(post):	/sbin/ldconfig
+Requires(post,postun):	/sbin/ldconfig
 Requires(post,preun):	%{apxs}
 Conflicts:	apache-mod_xslt
 Obsoletes:	apache-mod_xslt
