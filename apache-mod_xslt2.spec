@@ -41,7 +41,7 @@ text/html. The translation occurs transparently to the user.
 %description -l pl
 mod_xslt jest prostym modu³em Apache do udostêpniania dokumentów XML.
 Dane s± zapisane w plikach XML na serwerze. U¿ytkownik ¿±da pliku XML
-i t³maczenia poprzez URL w stylu http://localhost/sourcefile.html.
+i t³umaczenia poprzez URL w stylu http://localhost/sourcefile.html.
 Modu³ zamienia ten URL na pliki ¼ród³owe XML i XSL. W tym przyk³adzie
 plikiem XML bêdzie sourcefile.xml. Modu³ otworzy plik sourcefile.xml i
 okre¶li DOCTYPE, na podstawie którego otworzy odpowiedni plik XSL.
