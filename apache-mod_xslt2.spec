@@ -24,7 +24,7 @@ Obsoletes:	apache-mod_xslt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
-%define		_sysconfdir	/etc/httpd
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR)
 
 %description
 mod_xslt is a simple Apache module to serve XML based content. Data is
