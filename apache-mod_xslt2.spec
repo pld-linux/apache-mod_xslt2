@@ -3,13 +3,13 @@
 Summary:	Module to serve XML based content
 Summary(pl):	Modu³ do udostêpniania dokumentów XML
 Name:		apache-mod_%{mod_name}2
-Version:	1.3.5
+Version:	1.3.6
+%define	snap	2004083000
 Release:	1
-%define snapdate 2004080100
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://www.mod-xslt2.com/software/archive/%{snapdate}/modxslt-%{snapdate}.tar.gz
-# Source0-md5:	5d7f607679a1ffb5dad48a93e655e8ff
+Source0:	http://www.mod-xslt2.com/software/archive/%{snap}/modxslt-%{snap}.tar.gz
+# Source0-md5:	8ebd2bc8ffcb555d001e4aad925103ed
 Source1:	%{name}.conf
 Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
@@ -72,7 +72,7 @@ Static mod_xslt2 library.
 Statyczna biblioteka mod_xslt2.
 
 %prep
-%setup -q -n mod%{mod_name}-%{snapdate}
+%setup -q -n mod%{mod_name}-%{snap}
 %patch0 -p1
 
 %build
