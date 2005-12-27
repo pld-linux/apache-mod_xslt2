@@ -1,10 +1,12 @@
+# TODO
+# - update to current apr, apu
 %define		mod_name	xslt
 %define		apxs		/usr/sbin/apxs
+%define		snap	2004083000
 Summary:	Module to serve XML based content
 Summary(pl):	Modu³ do udostêpniania dokumentów XML
 Name:		apache-mod_%{mod_name}2
 Version:	1.3.6
-%define		snap	2004083000
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
@@ -14,17 +16,17 @@ Source1:	%{name}.conf
 Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
 BuildRequires:	%{apxs}
-BuildRequires:	apache-devel
+BuildRequires:	apache-devel >= 2.0
 BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
 Requires(post):	/sbin/ldconfig
-Requires(post,preun):	%{apxs}
-Conflicts:	apache-mod_xslt
+Requires:	apache(modules-api) = %apache_modules_api
 Obsoletes:	apache-mod_xslt
+Conflicts:	apache-mod_xslt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR)
-%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR)
+%define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
 
 %description
 mod_xslt is a simple Apache module to serve XML based content. Data is
@@ -76,9 +78,11 @@ Statyczna biblioteka mod_xslt2.
 %patch0 -p1
 
 %build
-%configure
-%{__make} \
-	APXS=%{apxs}
+%configure \
+	--with-apr-config=%{_bindir}/apr-1-config \
+	--with-apu-config=%{_bindir}/apu-1-config
+	--with-apxs=%{apxs}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -87,7 +91,7 @@ install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}/httpd.conf}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/70_mod_xslt2.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf/70_mod_%{mod_name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -109,8 +113,8 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf/*
-%attr(755,root,root) %{_pkglibdir}/*
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf/*_mod_%{mod_name}.conf
+%attr(755,root,root) %{_pkglibdir}/*.so
 %attr(755,root,root) %{_libdir}/libmodxslt0.so.*.*.*
 
 %files devel
