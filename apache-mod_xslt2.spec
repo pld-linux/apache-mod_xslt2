@@ -21,7 +21,6 @@ BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
 Requires(post):	/sbin/ldconfig
 Requires:	apache(modules-api) = %apache_modules_api
-Obsoletes:	apache-mod_xslt
 Conflicts:	apache-mod_xslt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
