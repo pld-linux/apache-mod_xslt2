@@ -20,7 +20,7 @@ BuildRequires:	apache-devel >= 2.0
 BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
-Requires(post):	/sbin/ldconfig
+Requires(post,postun):	/sbin/ldconfig
 Requires:	apache(modules-api) = %apache_modules_api
 Conflicts:	apache-mod_xslt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -101,11 +101,10 @@ rm -rf $RPM_BUILD_ROOT
 %service -q httpd restart
 
 %postun
+/sbin/ldconfig
 if [ "$1" = "0" ]; then
 	%service -q httpd restart
 fi
-
-%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
