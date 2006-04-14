@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 %service -q httpd restart
 
-%preun
+%postun
 if [ "$1" = "0" ]; then
 	%service -q httpd restart
 fi
