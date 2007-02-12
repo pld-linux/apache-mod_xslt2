@@ -4,7 +4,7 @@
 %define		apxs		/usr/sbin/apxs
 %define		snap	2004083000
 Summary:	Module to serve XML based content
-Summary(pl):	Modu³ do udostêpniania dokumentów XML
+Summary(pl.UTF-8):   ModuÅ‚ do udostÄ™pniania dokumentÃ³w XML
 Name:		apache-mod_%{mod_name}2
 Version:	1.3.6
 Release:	1
@@ -40,21 +40,21 @@ opened. Should the DOCTYPE be "tutorial", the XSL file opened would be
 tutorial_html.xsl. The content-type returned to the browser is
 text/html. The translation occurs transparently to the user.
 
-%description -l pl
-mod_xslt jest prostym modu³em Apache do udostêpniania dokumentów XML.
-Dane s± zapisane w plikach XML na serwerze. U¿ytkownik ¿±da pliku XML
-i t³umaczenia poprzez URL w stylu http://localhost/sourcefile.html.
-Modu³ zamienia ten URL na pliki ¼ród³owe XML i XSL. W tym przyk³adzie
-plikiem XML bêdzie sourcefile.xml. Modu³ otworzy plik sourcefile.xml i
-okre¶li DOCTYPE, na podstawie którego otworzy odpowiedni plik XSL.
-Je¿eli DOCTYPE jest "tutorial", plikiem XSL bêdzie tutorial_html.xsl.
-Nastêpnie modu³ dokona przetwarzania pliku XML za pomoc± arkusza XSLT
-i zwróci przegl±darce powsta³y w ten sposób text/html. Ca³y proces
-odbywa siê w sposób niewidoczny dla u¿ytkownika.
+%description -l pl.UTF-8
+mod_xslt jest prostym moduÅ‚em Apache do udostÄ™pniania dokumentÃ³w XML.
+Dane sÄ… zapisane w plikach XML na serwerze. UÅ¼ytkownik Å¼Ä…da pliku XML
+i tÅ‚umaczenia poprzez URL w stylu http://localhost/sourcefile.html.
+ModuÅ‚ zamienia ten URL na pliki ÅºrÃ³dÅ‚owe XML i XSL. W tym przykÅ‚adzie
+plikiem XML bÄ™dzie sourcefile.xml. ModuÅ‚ otworzy plik sourcefile.xml i
+okreÅ›li DOCTYPE, na podstawie ktÃ³rego otworzy odpowiedni plik XSL.
+JeÅ¼eli DOCTYPE jest "tutorial", plikiem XSL bÄ™dzie tutorial_html.xsl.
+NastÄ™pnie moduÅ‚ dokona przetwarzania pliku XML za pomocÄ… arkusza XSLT
+i zwrÃ³ci przeglÄ…darce powstaÅ‚y w ten sposÃ³b text/html. CaÅ‚y proces
+odbywa siÄ™ w sposÃ³b niewidoczny dla uÅ¼ytkownika.
 
 %package devel
 Summary:	Development headers for mod_xslt2
-Summary(pl):	Pliki nag³ówkowe mod_xslt2
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe mod_xslt2
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -63,14 +63,14 @@ development headers for mod_xslt2.
 
 %package static
 Summary:	Static mod_xslt2 library
-Summary(pl):	Statyczna biblioteka mod_xslt2
+Summary(pl.UTF-8):   Statyczna biblioteka mod_xslt2
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static mod_xslt2 library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka mod_xslt2.
 
 %prep
