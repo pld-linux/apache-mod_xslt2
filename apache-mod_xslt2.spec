@@ -4,7 +4,7 @@
 %define		apxs		/usr/sbin/apxs
 %define		snap	2004083000
 Summary:	Module to serve XML based content
-Summary(pl.UTF-8):   Moduł do udostępniania dokumentów XML
+Summary(pl.UTF-8):	Moduł do udostępniania dokumentów XML
 Name:		apache-mod_%{mod_name}2
 Version:	1.3.6
 Release:	1
@@ -54,7 +54,7 @@ odbywa się w sposób niewidoczny dla użytkownika.
 
 %package devel
 Summary:	Development headers for mod_xslt2
-Summary(pl.UTF-8):   Pliki nagłówkowe mod_xslt2
+Summary(pl.UTF-8):	Pliki nagłówkowe mod_xslt2
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -63,7 +63,7 @@ development headers for mod_xslt2.
 
 %package static
 Summary:	Static mod_xslt2 library
-Summary(pl.UTF-8):   Statyczna biblioteka mod_xslt2
+Summary(pl.UTF-8):	Statyczna biblioteka mod_xslt2
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
