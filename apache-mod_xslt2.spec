@@ -15,7 +15,7 @@ Source0:	http://www.mod-xslt2.com/software/archive/%{snap}/modxslt-%{snap}.tar.g
 Source1:	%{name}.conf
 Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
-BuildRequires:	apache-apxs >= 2.0
+BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
 BuildRequires:	libxslt-devel
 BuildRequires:	pcre-devel
