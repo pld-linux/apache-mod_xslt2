@@ -9,7 +9,7 @@ Name:		apache-mod_%{mod_name}2
 Version:	1.3.6
 Release:	1
 License:	GPL
-Group:		Networking/Daemons
+Group:		Networking/Daemons/HTTP
 Source0:	http://www.mod-xslt2.com/software/archive/%{snap}/modxslt-%{snap}.tar.gz
 # Source0-md5:	8ebd2bc8ffcb555d001e4aad925103ed
 Source1:	%{name}.conf
