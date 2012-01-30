@@ -2,16 +2,16 @@
 # - update to current apr, apu
 %define		mod_name	xslt
 %define		apxs		/usr/sbin/apxs
-%define		snap	2004083000
+%define		snap		337e290
 Summary:	Module to serve XML based content
 Summary(pl.UTF-8):	Moduł do udostępniania dokumentów XML
 Name:		apache-mod_%{mod_name}2
-Version:	1.3.6
-Release:	1
+Version:	1.4.1
+Release:	0.1
 License:	GPL
 Group:		Networking/Daemons/HTTP
-Source0:	http://www.mod-xslt2.com/software/archive/%{snap}/modxslt-%{snap}.tar.gz
-# Source0-md5:	8ebd2bc8ffcb555d001e4aad925103ed
+Source0:	https://github.com/ccontavalli/mod-xslt/tarball/v1.4.1#/%{name}-%{version}.tar.gz
+# Source0-md5:	71cbec1d497a3264633cc50dccc6c7a3
 Source1:	%{name}.conf
 Patch0:		%{name}-makefile.patch
 URL:		http://www.mod-xslt2.com/
@@ -74,13 +74,14 @@ Static mod_xslt2 library.
 Statyczna biblioteka mod_xslt2.
 
 %prep
-%setup -q -n mod%{mod_name}-%{snap}
+%setup -q -n ccontavalli-mod-xslt-%{snap}
 %patch0 -p1
 
 %build
 %configure \
+	--with-sapi=apache2 \
 	--with-apr-config=%{_bindir}/apr-1-config \
-	--with-apu-config=%{_bindir}/apu-1-config
+	--with-apu-config=%{_bindir}/apu-1-config \
 	--with-apxs=%{apxs}
 %{__make}
 
@@ -88,7 +89,7 @@ Statyczna biblioteka mod_xslt2.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_pkglibdir},%{_sysconfdir}}
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/70_mod_%{mod_name}.conf
@@ -110,13 +111,16 @@ fi
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/*.so
-%attr(755,root,root) %{_libdir}/libmodxslt0.so.*.*.*
+%attr(755,root,root) %{_libdir}/libmodxslt1.so.*.*.*
+%{_mandir}/man1/modxslt-config.1*
+%{_mandir}/man1/modxslt-parse.1*
+%{_mandir}/man1/modxslt-perror.1*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/*.la
-%{_includedir}/modxslt0
+%{_includedir}/modxslt1
 
 %files static
 %defattr(644,root,root,755)
