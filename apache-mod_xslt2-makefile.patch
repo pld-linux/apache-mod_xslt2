@@ -1,72 +1,11 @@
-diff -ur modxslt-2004080100-orig/lib/Makefile.in modxslt-2004080100/lib/Makefile.in
---- modxslt-2004080100-orig/lib/Makefile.in	2004-07-13 07:55:58.000000000 -0600
-+++ modxslt-2004080100/lib/Makefile.in	2004-08-22 15:30:56.820886324 -0600
-@@ -157,13 +157,13 @@
- install: install-library install-headers
- 
- install-library: libmodxslt$(LIB_VERSION).la 
--	$(LIBTOOL) --mode=install install $(IFLAGS) -D -m 0644 -o root -g root \
-+	$(LIBTOOL) --mode=install install $(IFLAGS) -D \
- 		libmodxslt$(LIB_VERSION).la $(DESTDIR)$(libdir)/libmodxslt$(LIB_VERSION).la
- 
- install-headers:
--	$(INSTALL) -d -m 0755 -o root -g root $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
--	$(INSTALL) -m 0644 -o root -g root $(srcdir)/modxslt$(LIB_VERSION)/*.h $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
--	$(INSTALL) -m 0644 -o root -g root ./modxslt$(LIB_VERSION)/*.h $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
-+	$(INSTALL) -d $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
-+	$(INSTALL) $(srcdir)/modxslt$(LIB_VERSION)/*.h $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
-+	$(INSTALL) ./modxslt$(LIB_VERSION)/*.h $(DESTDIR)$(includedir)/modxslt$(LIB_VERSION)
- 
- uninstall: uninstall-library uninstall-headers
- 
-Only in modxslt-2004080100/lib: Makefile.in~
-diff -ur modxslt-2004080100-orig/sapi/apache1/Makefile.in modxslt-2004080100/sapi/apache1/Makefile.in
---- modxslt-2004080100-orig/sapi/apache1/Makefile.in	2004-07-22 14:18:20.000000000 -0600
-+++ modxslt-2004080100/sapi/apache1/Makefile.in	2004-08-22 15:31:16.663309166 -0600
-@@ -91,7 +91,7 @@
- install-strip: install
- 
- install: mod_xslt.so Makefile
--	$(INSTALL) $(IFLAGS) -D -m 0644 -o root -g root mod_xslt.so '$(DESTDIR)$(APXS_INSTALLDIR)/mod_xslt.so'
-+	$(INSTALL) $(IFLAGS) -D mod_xslt.so '$(DESTDIR)$(APXS_INSTALLDIR)/mod_xslt.so'
- 
- uninstall:
- 	rm -f '$(DESTDIR)$(APXS_INSTALLDIR)'/mod_xslt.so
-Only in modxslt-2004080100/sapi/apache1: Makefile.in~
-diff -ur modxslt-2004080100-orig/sapi/apache2/Makefile.in modxslt-2004080100/sapi/apache2/Makefile.in
---- modxslt-2004080100-orig/sapi/apache2/Makefile.in	2004-07-22 14:58:52.000000000 -0600
-+++ modxslt-2004080100/sapi/apache2/Makefile.in	2004-08-22 15:31:38.713220746 -0600
-@@ -93,8 +93,7 @@
- install: mod_xslt.la install-stamp Makefile
- 
+--- ccontavalli-mod-xslt-337e290/sapi/apache2/Makefile.in~	2011-12-16 17:31:52.000000000 +0100
++++ ccontavalli-mod-xslt-337e290/sapi/apache2/Makefile.in	2012-01-30 16:19:21.146563014 +0100
+@@ -96,7 +96,7 @@
  install-stamp: mod_xslt.la Makefile
--	test "x$$UID" = "x" || test "x$$UID" = "x0" || { echo 'You must be root!'; exit 1; }
--	$(LIBTOOL) --mode=install $(INSTALL) $(STRIP) -o root -g root -m 0644 mod_xslt.la '$(DESTDIR)$(APXS_INSTALLDIR)'
-+	$(LIBTOOL) --mode=install $(INSTALL) $(STRIP) mod_xslt.la '$(DESTDIR)$(APXS_INSTALLDIR)'
+ 	test -w '$(DESTDIR)$(APXS_INSTALLDIR)' || \
+ 	  { echo 'You are not allowed to write in $(DESTDIR)$(APXS_INSTALLDIR). Are you root??'; exit 1; }
+-	$(INSTALL) $(STRIP) -m 0644 -d '$(DESTDIR)$(APXS_INSTALLDIR)'
++	$(INSTALL) $(STRIP) -m 0755 -d '$(DESTDIR)$(APXS_INSTALLDIR)'
+ 	$(LIBTOOL) --mode=install $(INSTALL) $(STRIP) -m 0644 mod_xslt.la '$(DESTDIR)$(APXS_INSTALLDIR)'
  	@echo Removing extra files...
  	FILE=`grep dlname mod_xslt.la | sed -e "s/[^']*'\([^']*\).*/\1/"` && \
- 	  find '$(APXS_INSTALLDIR)' -name 'mod_xslt.*'|grep -v "$$FILE"|xargs rm -f && \
-Only in modxslt-2004080100/sapi/apache2: Makefile.in~
-diff -ur modxslt-2004080100-orig/utils/Makefile.in modxslt-2004080100/utils/Makefile.in
---- modxslt-2004080100-orig/utils/Makefile.in	2004-07-13 07:55:58.000000000 -0600
-+++ modxslt-2004080100/utils/Makefile.in	2004-08-22 15:31:09.899869522 -0600
-@@ -126,15 +126,15 @@
- install: install-modxslt-parse install-modxslt-config install-modxslt-perror
- 
- install-modxslt-perror:
--	$(LIBTOOL) --mode=install install $(IFLAGS) -D -m 0755 -o root -g root modxslt-perror \
-+	$(LIBTOOL) --mode=install install $(IFLAGS) -D modxslt-perror \
- 		$(DESTDIR)$(bindir)/modxslt-perror
- 
- install-modxslt-parse:
--	$(LIBTOOL) --mode=install install $(IFLAGS) -D -m 0755 -o root -g root modxslt-parse \
-+	$(LIBTOOL) --mode=install install $(IFLAGS) -D modxslt-parse \
- 		$(DESTDIR)$(bindir)/modxslt-parse
- 
- install-modxslt-config:
--	install -D -m 0755 -o root -g root modxslt-config \
-+	install -D modxslt-config \
- 		$(DESTDIR)$(bindir)/modxslt-config
- 
- uninstall: uninstall-modxslt-parse uninstall-modxslt-config uninstall-modxslt-perror
-Only in modxslt-2004080100/utils: Makefile.in~
