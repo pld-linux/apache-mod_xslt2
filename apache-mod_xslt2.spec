@@ -75,7 +75,7 @@ Statyczna biblioteka mod_xslt2.
 
 %prep
 %setup -q -n ccontavalli-mod-xslt-%{snap}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %configure \
